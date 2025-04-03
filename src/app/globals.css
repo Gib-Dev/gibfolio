@@ -1,26 +1,80 @@
-@import "tailwindcss";
+@import "tailwindcss/preflight";
+@import "tailwindcss/utilities";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ============================
+   1. Font Face MonaLisa (locale)
+============================= */
+@font-face {
+  font-family: "MonaLisa";
+  src: url("/fonts/monolisa/MonoLisa-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "MonaLisa";
+  src: url("/fonts/monolisa/MonoLisa-RegularItalic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 246 6% 94%; /* Ghost white: #ECEBF3 */
+    --foreground: 120 25% 5%; /* Night: #0C120C */
+    --primary: 210 50% 40%; /* Lapis Lazuli: #336699 */
+    --card: 0 0% 100%; /* White */
+    --border: 240 10% 87%; /* Subtle border */
+  }
+
+  .dark {
+    --background: 120 25% 5%; /* Night */
+    --foreground: 246 6% 94%; /* Ghost white */
+    --primary: 210 42% 48%; /* Slightly lighter Lapis */
+    --card: 120 25% 10%; /* Dark card */
+    --border: 120 7% 18%; /* Subtle dark border */
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Accessible focus outline */
+*:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+
+/* Scroll reveal animation */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Page transition */
+.page-transition-enter {
+  opacity: 0;
+}
+.page-transition-enter-active {
+  opacity: 1;
+  transition: opacity 250ms;
+}
+.page-transition-exit {
+  opacity: 1;
+}
+.page-transition-exit-active {
+  opacity: 0;
+  transition: opacity 250ms;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
 }
